@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos - EduManager</title>
+</head>
+<body>
+
+    <h2>Lista de Cursos</h2>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/cursos/nuevo}">Agregar Curso</a> |
+    </div>
+    <a th:href="@{/}">Volver al inicio</a>
+
+    <br/><br/>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Instructor</th>
+                <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="curso : ${cursos}">
+                <td th:text="${curso.id}"></td>
+                <td th:text="${curso.nombre}"></td>
+                <td th:text="${curso.descripcion}"></td>
+                <td th:text="${curso.instructor}"></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

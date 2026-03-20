@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - EduManager</title>
+</head>
+<body>
+
+    <h2>Bienvenido a EduManager</h2>
+
+    <p>Usuario: <strong sec:authentication="name"></strong></p>
+    <p>Rol: <strong sec:authentication="authorities"></strong></p>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/estudiantes}">Ver Estudiantes</a></li>
+            <li><a th:href="@{/cursos}">Ver Cursos</a></li>
+        </ul>
+    </nav>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Cerrar sesión</button>
+    </form>
+
+</body>
+</html>

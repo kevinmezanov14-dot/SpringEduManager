@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - EduManager</title>
+</head>
+<body>
+
+    <h2>EduManager - Iniciar sesión</h2>
+
+    <div th:if="${param.error}">
+        <p style="color:red">Usuario o contraseña incorrectos.</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p style="color:green">Sesión cerrada correctamente.</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <label>Usuario: <input type="text" name="username"/></label><br/><br/>
+        <label>Contraseña: <input type="password" name="password"/></label><br/><br/>
+        <button type="submit">Ingresar</button>
+    </form>
+
+</body>
+</html>

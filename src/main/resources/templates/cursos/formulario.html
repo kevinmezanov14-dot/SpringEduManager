@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Curso - EduManager</title>
+</head>
+<body>
+
+    <h2>Agregar Curso</h2>
+
+    <form th:action="@{/cursos/guardar}" th:object="${curso}" method="post">
+        <label>Nombre: <input type="text" th:field="*{nombre}"/></label><br/><br/>
+        <label>Descripción: <input type="text" th:field="*{descripcion}"/></label><br/><br/>
+        <label>Instructor: <input type="text" th:field="*{instructor}"/></label><br/><br/>
+        <button type="submit">Guardar</button>
+        <a th:href="@{/cursos}">Cancelar</a>
+    </form>
+
+</body>
+</html>
