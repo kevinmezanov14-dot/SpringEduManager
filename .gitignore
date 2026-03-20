@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Datos sensibles ###
+src/main/resources/application.properties
+
+### Logs ###
+*.log
+logs/
+
+### Sistema operativo ###
+.DS_Store
+Thumbs.db
