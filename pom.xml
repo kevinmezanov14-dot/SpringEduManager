@@ -11,7 +11,7 @@
 		<relativePath />
 	</parent>
 
-	<groupId>com.edumanager</groupId>
+	<groupId>com.edu.manager</groupId>
 	<artifactId>SpringEduManager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>EduManager</name>

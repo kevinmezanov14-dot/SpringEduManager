@@ -43,6 +43,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/cursos/nuevo", "/cursos/guardar").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
@@ -56,6 +57,7 @@ public class SecurityConfig {
                 .permitAll()
             )
             .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/api/**")
                 .ignoringRequestMatchers("/h2-console/**")
             )
             .headers(headers -> headers
