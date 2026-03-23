@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluaciones - EduManager</title>
+</head>
+<body>
+
+    <h2>Lista de Evaluaciones</h2>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/evaluaciones/nuevo}">Agregar Evaluación</a> |
+    </div>
+    <a th:href="@{/}">Volver al inicio</a>
+
+    <br/><br/>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Nota</th>
+                <th>Estudiante</th>
+                <th>Curso</th>
+                <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evaluacion : ${evaluaciones}">
+                <td th:text="${evaluacion.id}"></td>
+                <td th:text="${evaluacion.titulo}"></td>
+                <td th:text="${evaluacion.descripcion}"></td>
+                <td th:text="${evaluacion.nota}"></td>
+                <td th:text="${evaluacion.estudiante != null ? evaluacion.estudiante.nombre + ' ' + evaluacion.estudiante.apellido : '-'}"></td>
+                <td th:text="${evaluacion.curso != null ? evaluacion.curso.nombre : '-'}"></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/evaluaciones/eliminar/{id}(id=${evaluacion.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

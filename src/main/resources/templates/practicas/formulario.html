@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Práctica - EduManager</title>
+</head>
+<body>
+
+    <h2>Agregar Práctica</h2>
+
+    <form th:action="@{/practicas/guardar}" th:object="${practica}" method="post">
+        <label>Título: <input type="text" th:field="*{titulo}"/></label><br/><br/>
+        <label>Descripción: <input type="text" th:field="*{descripcion}"/></label><br/><br/>
+        <label>Estado:
+            <select th:field="*{estado}">
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="EN_PROGRESO">En Progreso</option>
+                <option value="COMPLETADA">Completada</option>
+            </select>
+        </label><br/><br/>
+
+        <label>Estudiante:
+            <select th:field="*{estudiante}">
+                <option th:each="est : ${estudiantes}"
+                        th:value="${est.id}"
+                        th:text="${est.nombre + ' ' + est.apellido}">
+                </option>
+            </select>
+        </label><br/><br/>
+
+        <label>Curso:
+            <select th:field="*{curso}">
+                <option th:each="cur : ${cursos}"
+                        th:value="${cur.id}"
+                        th:text="${cur.nombre}">
+                </option>
+            </select>
+        </label><br/><br/>
+
+        <button type="submit">Guardar</button>
+        <a th:href="@{/practicas}">Cancelar</a>
+    </form>
+
+</body>
+</html>

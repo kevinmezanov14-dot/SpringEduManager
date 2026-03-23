@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Prácticas - EduManager</title>
+</head>
+<body>
+
+    <h2>Lista de Prácticas</h2>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/practicas/nuevo}">Agregar Práctica</a> |
+    </div>
+    <a th:href="@{/}">Volver al inicio</a>
+
+    <br/><br/>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Estudiante</th>
+                <th>Curso</th>
+                <th sec:authorize="hasRole('ADMIN')">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="practica : ${practicas}">
+                <td th:text="${practica.id}"></td>
+                <td th:text="${practica.titulo}"></td>
+                <td th:text="${practica.descripcion}"></td>
+                <td th:text="${practica.estado}"></td>
+                <td th:text="${practica.estudiante != null ? practica.estudiante.nombre + ' ' + practica.estudiante.apellido : '-'}"></td>
+                <td th:text="${practica.curso != null ? practica.curso.nombre : '-'}"></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/practicas/eliminar/{id}(id=${practica.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
