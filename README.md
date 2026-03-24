@@ -28,7 +28,7 @@ CREATE DATABASE edumanager;
 
 ## Estructura del proyecto
 ```
-src/main/java/com/edumanager/
+src/main/java/com/edu.manager/
 ├── config/
 │   └── SecurityConfig.java
 ├── controller/
