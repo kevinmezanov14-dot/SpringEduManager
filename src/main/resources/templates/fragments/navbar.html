@@ -1,0 +1,99 @@
+<div th:fragment="navbar">
+
+	<!-- HEADER INSTITUCIONAL -->
+	<div class="header">
+
+		<div class="header-top">
+			<div class="header-logo">🎓</div>
+			<div>
+				<h1>Liceo Bicentenario</h1>
+				<p>Edu Manager</p>
+			</div>
+		</div>
+
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-lg navbar-dark">
+
+			<div class="container-fluid">
+
+				<!-- BOTÓN RESPONSIVE -->
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- MENÚ -->
+				<div class="collapse navbar-collapse" id="navbarNav">
+
+					<ul class="navbar-nav me-auto">
+
+						<li class="nav-item"><a class="nav-link" th:href="@{/}"
+							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI == '/'} ? ' active' : ''">
+								🏠 Inicio </a></li>
+
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/estudiantes}"
+							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/estudiantes')} ? ' active' : ''">
+								👨‍🎓 Estudiantes </a></li>
+
+						<li class="nav-item"><a class="nav-link" th:href="@{/cursos}"
+							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/cursos')} ? ' active' : ''">
+								📚 Cursos </a></li>
+
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/evaluaciones}"
+							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/evaluaciones')} ? ' active' : ''">
+								📝 Evaluaciones </a></li>
+
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/practicas}"
+							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/practicas')} ? ' active' : ''">
+								💻 Prácticas </a></li>
+
+					</ul>
+
+					<!-- USUARIO DROPDOWN PRO -->
+					<div class="dropdown ms-lg-3">
+
+						<button class="btn btn-dorado dropdown-toggle user-dropdown"
+							type="button" data-bs-toggle="dropdown" data-bs-display="dynamic">
+
+							👤 <span sec:authentication="name"></span>
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-end shadow user-menu">
+
+							<li class="dropdown-item-text"><strong
+								sec:authentication="name"></strong><br> <small
+								sec:authentication="authorities"></small></li>
+
+							<li><hr class="dropdown-divider"></li>
+
+							<li>
+								<form th:action="@{/logout}" method="post">
+									<button class="dropdown-item text-danger">🚪 Cerrar
+										sesión</button>
+								</form>
+							</li>
+
+						</ul>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</nav>
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+

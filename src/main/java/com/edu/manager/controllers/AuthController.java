@@ -1,9 +1,10 @@
 package com.edu.manager.controllers;
 
+import com.edu.manager.models.Usuario;
 import com.edu.manager.security.JwtUtil;
+import com.edu.manager.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,29 +15,47 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
+	private final AuthenticationManager authenticationManager;
+	private final JwtUtil jwtUtil;
+	private final UsuarioService usuarioService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
-    }
+	public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UsuarioService usuarioService) {
+		this.authenticationManager = authenticationManager;
+		this.jwtUtil = jwtUtil;
+		this.usuarioService = usuarioService;
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credenciales) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        credenciales.get("username"),
-                        credenciales.get("password")
-                )
-        );
+	// LOGIN
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody Map<String, String> credenciales) {
 
-        String token = jwtUtil.generarToken(authentication.getName());
+		try {
+			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+					credenciales.get("username"), credenciales.get("password")));
 
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
-        response.put("usuario", authentication.getName());
+			String token = jwtUtil.generarToken(authentication.getName());
 
-        return ResponseEntity.ok(response);
-    }
+			Map<String, String> response = new HashMap<>();
+			response.put("token", token);
+			response.put("usuario", authentication.getName());
+
+			return ResponseEntity.ok(response);
+
+		} catch (BadCredentialsException e) {
+			return ResponseEntity.status(401).body("Credenciales incorrectas");
+		}
+	}
+
+	// REGISTRO
+	@PostMapping("/registro")
+	public ResponseEntity<?> registrar(@RequestBody Usuario usuario) {
+
+		try {
+			Usuario nuevo = usuarioService.registrarUsuario(usuario);
+			return ResponseEntity.ok(nuevo);
+
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

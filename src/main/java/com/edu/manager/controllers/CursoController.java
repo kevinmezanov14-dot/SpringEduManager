@@ -33,7 +33,12 @@ public class CursoController {
         cursoService.guardar(curso);
         return "redirect:/cursos";
     }
-
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Curso curso = cursoService.buscarPorId(id);
+        model.addAttribute("curso", curso);
+        return "cursos/formulario";
+    }
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         cursoService.eliminar(id);

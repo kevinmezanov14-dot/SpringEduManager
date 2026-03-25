@@ -1,44 +1,84 @@
 package com.edu.manager.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "practicas")
 public class Practica {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String titulo;
-    private String descripcion;
-    private String estado;
+	@NotBlank(message = "El título es obligatorio")
+	private String titulo;
 
-    @ManyToOne
-    @JoinColumn(name = "estudiante_id")
-    private Estudiante estudiante;
+	@NotBlank(message = "La descripción es obligatoria")
+	private String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "curso_id")
-    private Curso curso;
+	@NotBlank(message = "El estado es obligatorio")
+	private String estado;
 
-    public Practica() {}
+	@NotNull(message = "Debe seleccionar un estudiante")
+	@ManyToOne
+	@JoinColumn(name = "estudiante_id")
+	private Estudiante estudiante;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+	@NotNull(message = "Debe seleccionar un curso")
+	@ManyToOne
+	@JoinColumn(name = "curso_id")
+	private Curso curso;
 
-    public String getTitulo() { return titulo; }
-    public void setTitulo(String titulo) { this.titulo = titulo; }
+	public Practica() {
+	}
 
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+	public Long getId() {
+		return id;
+	}
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Estudiante getEstudiante() { return estudiante; }
-    public void setEstudiante(Estudiante estudiante) { this.estudiante = estudiante; }
+	public String getTitulo() {
+		return titulo;
+	}
 
-    public Curso getCurso() { return curso; }
-    public void setCurso(Curso curso) { this.curso = curso; }
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Estudiante getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
 }

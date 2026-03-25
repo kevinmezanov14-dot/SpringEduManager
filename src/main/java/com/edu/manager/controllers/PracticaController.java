@@ -4,8 +4,12 @@ import com.edu.manager.models.Practica;
 import com.edu.manager.services.CursoService;
 import com.edu.manager.services.EstudianteService;
 import com.edu.manager.services.PracticaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -38,7 +42,14 @@ public class PracticaController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardar(@ModelAttribute Practica practica) {
+	public String guardar(@Valid @ModelAttribute Practica practica, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("estudiantes", estudianteService.listarTodos());
+			model.addAttribute("cursos", cursoService.listarTodos());
+			return "practicas/formulario";
+		}
+
 		practicaService.guardar(practica);
 		return "redirect:/practicas";
 	}
