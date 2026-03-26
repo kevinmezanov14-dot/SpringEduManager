@@ -16,7 +16,7 @@ public class EvaluacionService {
     }
 
     public List<Evaluacion> listarTodos() {
-        return evaluacionRepository.findAll();
+        return evaluacionRepository.findAllWithRelations();
     }
 
     public void guardar(Evaluacion evaluacion) {

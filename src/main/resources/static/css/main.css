@@ -4,8 +4,9 @@
 @import url('variables.css');
 
 /* Páginas específicas */
-@import url('login.css');
-
+/*@import url('login.css');
+/*header*/
+@import url('header.css');
 /* Navegación y navbar */
 @import url('navbar.css');
 

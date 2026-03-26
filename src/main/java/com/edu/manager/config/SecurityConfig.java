@@ -3,7 +3,6 @@ package com.edu.manager.config;
 import com.edu.manager.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,66 +16,57 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JwtFilter jwtFilter;
+	private final JwtFilter jwtFilter;
 
-    public SecurityConfig(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
+	public SecurityConfig(JwtFilter jwtFilter) {
+		this.jwtFilter = jwtFilter;
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-            .authorizeHttpRequests(auth -> auth
-                // públicas
-                .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/login", "/registro").permitAll()
+	    http
+	        .csrf(csrf -> csrf.disable())
 
-                // API pública GET
-                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+	        .authorizeHttpRequests(auth -> auth
 
-                // ADMIN
-                .requestMatchers("/cursos/nuevo", "/cursos/guardar").hasRole("ADMIN")
-                .requestMatchers("/evaluaciones/nuevo", "/evaluaciones/guardar").hasRole("ADMIN")
-                .requestMatchers("/practicas/nuevo", "/practicas/guardar").hasRole("ADMIN")
+	            // 🔹 recursos estáticos
+	            .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 
-                .anyRequest().authenticated()
-            )
+	            // 🔹 login y registro
+	            .requestMatchers("/login", "/registro").permitAll()
 
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
+	            // 🔹 API pública
+	            .requestMatchers("/api/auth/login", "/api/auth/registro").permitAll()
 
-            .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
-                .permitAll()
-            )
+	            // 🔹 API protegida
+	            .requestMatchers("/api/auth/me").authenticated()
+	            .requestMatchers("/api/users/**").hasRole("ADMIN")
 
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/**")
-                .ignoringRequestMatchers("/h2-console/**")
-            )
+	            // 🔹 HOME protegido
+	            .requestMatchers("/").authenticated()
 
-            .headers(headers -> headers
-                .frameOptions(frame -> frame.sameOrigin())
-            )
+	            .anyRequest().authenticated()
+	        )
 
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	        // 🔥 ESTO SOLUCIONA TU 403
+	        .formLogin(form -> form
+	            .loginPage("/login")
+	            .permitAll()
+	        )
 
-        return http.build();
-    }
+	        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+	    return http.build();
+	}
 }
