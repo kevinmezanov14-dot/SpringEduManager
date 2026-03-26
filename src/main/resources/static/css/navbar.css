@@ -1,0 +1,110 @@
+/* ================= NAVBAR ================= */
+.navbar {
+    background-color: var(--azul-institucional) !important;
+    padding: 0 30px;
+}
+
+.navbar .nav-link {
+    color: var(--blanco) !important;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    background-color: var(--azul-claro);
+    border-bottom: 3px solid var(--dorado);
+    color: var(--dorado-claro) !important;
+}
+
+.navbar .nav-link.active {
+    background-color: var(--azul-claro);
+    border-bottom: 3px solid var(--dorado);
+    color: var(--dorado-claro) !important;
+}
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--blanco);
+    font-size: 0.85rem;
+}
+
+/* RESPONSIVE NAVBAR */
+@media ( max-width : 991px) {
+    .navbar-collapse {
+        background-color: var(--azul-institucional);
+        padding: 15px;
+        border-top: 2px solid var(--dorado);
+    }
+    .navbar-nav {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .navbar .nav-link {
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .navbar-user {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 15px;
+        gap: 10px;
+    }
+    .navbar-user form, .navbar-user button {
+        width: 100%;
+    }
+}
+
+/* Dropdown usuario */
+.user-dropdown {
+    background-color: var(--dorado);
+    color: var(--azul-institucional);
+    font-weight: 600;
+    border: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.user-dropdown:hover, .user-dropdown:focus, .user-dropdown:active {
+    background-color: var(--dorado-claro);
+    color: var(--azul-institucional);
+}
+
+.user-dropdown span { color: var(--azul-institucional); }
+
+.user-menu {
+    right: 0;
+    left: auto;
+    margin-top: 8px;
+    min-width: 200px;
+    max-width: 260px;
+    border-radius: 8px;
+    padding: 8px 0;
+}
+
+.user-menu .dropdown-item-text { font-size: 0.85rem; line-height: 1.2; }
+
+.user-menu button.dropdown-item { color: var(--rojo-error); }
+
+@media ( max-width : 991px) {
+    .user-dropdown {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+    .user-menu {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        min-width: 180px;
+        max-width: 90vw;
+    }
+    .user-menu button.dropdown-item {
+        width: 100%;
+    }
+}

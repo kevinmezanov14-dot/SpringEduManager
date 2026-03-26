@@ -1,0 +1,19 @@
+/* ================= ALERTAS ================= */
+.alert {
+    padding: 12px 16px;
+    border-radius: 5px;
+    margin-bottom: 18px;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    background-color: #fdecea;
+    color: var(--rojo-error);
+    border-left: 4px solid var(--rojo-error);
+}
+
+.alert-success {
+    background-color: #eafaf1;
+    color: var(--verde-exito);
+    border-left: 4px solid var(--verde-exito);
+}

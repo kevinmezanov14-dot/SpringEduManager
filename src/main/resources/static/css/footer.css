@@ -1,0 +1,10 @@
+/* ================= FOOTER ================= */
+.footer {
+    background-color: var(--azul-institucional);
+    color: var(--blanco);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8rem;
+    margin-top: 40px;
+    border-top: 3px solid var(--dorado);
+}

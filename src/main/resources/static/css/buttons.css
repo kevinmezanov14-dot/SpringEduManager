@@ -1,0 +1,21 @@
+/* ================= BOTONES ================= */
+.btn-custom {
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-custom:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background-color: var(--azul-institucional);
+    border: none;
+}
+
+.btn-primary:hover { background-color: var(--azul-claro); }
+
+.btn-danger { background-color: var(--rojo-error); border: none; }
+.btn-secondary { background-color: #95a5a6; border: none; }
+.btn-warning { background-color: var(--dorado); border: none; color: var(--azul-institucional); }

@@ -1,0 +1,28 @@
+/* ================= MAIN.CSS ================= */
+
+/* Variables y reset global */
+@import url('variables.css');
+
+/* Páginas específicas */
+@import url('login.css');
+
+/* Navegación y navbar */
+@import url('navbar.css');
+
+/* Tarjetas / dashboard */
+@import url('cards.css');
+
+/* Tablas */
+@import url('tables.css');
+
+/* Botones */
+@import url('buttons.css');
+
+/* Formularios */
+@import url('forms.css');
+
+/* Alertas */
+@import url('alerts.css');
+
+/* Footer */
+@import url('footer.css');

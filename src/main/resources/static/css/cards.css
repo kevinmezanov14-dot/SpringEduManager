@@ -1,0 +1,88 @@
+/* ================= DASHBOARD CARDS ================= */
+.card-link {
+	text-decoration: none;
+	display: block;
+	height: 100%;
+}
+
+.card-dashboard {
+	overflow: hidden;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+	cursor: pointer;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+}
+
+.card-dashboard:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+}
+
+.card-dashboard .card-body {
+	flex-grow: 1;
+	padding: 18px;
+}
+
+.card-dashboard .card-body h5 {
+	color: var(--azul-institucional);
+	font-weight: 700;
+	margin-bottom: 6px;
+	font-size: 1.05rem;
+}
+
+.card-dashboard .card-body p {
+	font-size: 0.85rem;
+	color: #666;
+	margin: 0;
+}
+
+/* ================= IMAGEN ================= */
+.card-img {
+	height: 160px;
+	background-size: cover;
+	background-position: center;
+	border-bottom: 3px solid var(--dorado);
+	position: relative;
+}
+
+.card-img::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 48, 135, 0.35);
+}
+
+/* Imágenes específicas */
+.card-img.estudiantes {
+	background-image: url('../images/estudiantes.jpg');
+}
+
+.card-img.cursos {
+	background-image: url('../images/cursos.jpg');
+}
+
+.card-img.evaluaciones {
+	background-image: url('../images/evaluaciones.jpg');
+}
+
+.card-img.practicas {
+	background-image: url('../images/practicas.jpg');
+}
+
+/* Responsive */
+@media ( max-width : 768px ) {
+	.card-img {
+		height: 140px;
+	}
+}
+
+@media ( max-width : 576px ) {
+	.card-img {
+		height: 130px;
+	}
+	.card-dashboard:hover {
+		transform: none;
+	}
+}

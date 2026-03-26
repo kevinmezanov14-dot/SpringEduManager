@@ -1,0 +1,90 @@
+/* ================= TABLAS ================= */
+.tabla {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.92rem;
+}
+
+.tabla thead tr {
+	background-color: var(--azul-institucional);
+	color: var(--blanco);
+}
+
+.tabla thead th {
+	padding: 12px 15px;
+	text-align: left;
+	font-weight: 600;
+}
+
+.tabla tbody tr {
+	border-bottom: 1px solid #e0e0e0;
+	transition: background 0.15s;
+}
+
+.tabla tbody tr:hover {
+	background-color: #EEF3FF;
+}
+
+.tabla tbody td {
+	padding: 11px 15px;
+}
+
+.tabla tbody tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+/* Acciones en tabla */
+.table-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+}
+
+.table-actions button, .table-actions a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	font-size: 0.85rem;
+	padding: 6px 12px;
+	border-radius: 5px;
+	min-width: 80px;
+	text-align: center;
+	transition: all 0.2s ease-in-out;
+}
+
+.table-actions .btn-edit {
+	background-color: var(--azul-institucional);
+	color: var(--blanco);
+	border: none;
+}
+
+.table-actions .btn-edit:hover {
+	background-color: var(--azul-claro);
+}
+
+.table-actions .btn-delete {
+	background-color: var(--rojo-error);
+	color: var(--blanco);
+	border: none;
+}
+
+.table-actions .btn-delete:hover {
+	background-color: #c1272d;
+}
+
+.table-actions i {
+	font-size: 1rem;
+}
+
+@media ( max-width : 576px ) {
+	.table-actions {
+		flex-direction: column;
+		width: 100%;
+	}
+	.table-actions button, .table-actions a {
+		width: 100%;
+		justify-content: flex-start;
+	}
+}

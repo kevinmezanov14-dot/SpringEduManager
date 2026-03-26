@@ -27,6 +27,11 @@
 			</div>
 		</div>
 
+		<!-- Mensaje de error -->
+		<div th:if="${error}" class="alert alert-danger">
+			<span th:text="${error}"></span>
+		</div>
+
 		<div class="card p-3 shadow">
 
 			<table class="table table-striped table-hover">
@@ -46,9 +51,15 @@
 						<td th:text="${estudiante.nombre}"></td>
 						<td th:text="${estudiante.apellido}"></td>
 						<td th:text="${estudiante.email}"></td>
-						<td><a
-							th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
-							class="btn btn-danger btn-sm"> 🗑 Eliminar </a></td>
+						<td sec:authorize="hasRole('ADMIN')">
+							<div class="table-actions">
+								<a th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
+									class="btn btn-danger btn-sm"
+									onclick="return confirm('¿Seguro que quieres eliminar este estudiante?')">
+									🗑 Eliminar </a>
+							</div>
+						</td>
+
 					</tr>
 				</tbody>
 			</table>
@@ -56,7 +67,8 @@
 		</div>
 
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

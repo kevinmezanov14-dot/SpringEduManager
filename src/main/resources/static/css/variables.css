@@ -1,0 +1,26 @@
+/* ================= VARIABLES ================= */
+:root {
+    --azul-institucional: #003087;
+    --azul-claro: #0055B3;
+    --dorado: #C8A951;
+    --dorado-claro: #E8C96A;
+    --blanco: #FFFFFF;
+    --gris-claro: #F4F6F9;
+    --gris-texto: #333333;
+    --rojo-error: #C0392B;
+    --verde-exito: #27AE60;
+}
+
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--gris-claro);
+    color: var(--gris-texto);
+    min-height: 100vh;
+}

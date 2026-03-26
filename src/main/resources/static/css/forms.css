@@ -1,0 +1,27 @@
+/* ================= FORMULARIOS ================= */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--azul-institucional);
+    font-size: 0.9rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccd0d9;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 3px rgba(0, 85, 179, 0.15);
+}

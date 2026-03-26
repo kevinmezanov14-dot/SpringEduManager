@@ -58,9 +58,14 @@
 						<td
 							th:text="${evaluacion.curso != null ? evaluacion.curso.nombre : '-'}"></td>
 
-						<td sec:authorize="hasRole('ADMIN')"><a
-							th:href="@{/evaluaciones/eliminar/{id}(id=${evaluacion.id})}"
-							class="btn btn-danger btn-sm"> 🗑 Eliminar </a></td>
+						<td sec:authorize="hasRole('ADMIN')">
+							<div class="table-actions">
+								<a th:href="@{/evaluaciones/editar/{id}(id=${evaluacion.id})}"
+									class="btn-edit">✏ Editar</a> <a
+									th:href="@{/evaluaciones/eliminar/{id}(id=${evaluacion.id})}"
+									class="btn-delete">🗑 Eliminar</a>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 
@@ -69,7 +74,8 @@
 		</div>
 
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
