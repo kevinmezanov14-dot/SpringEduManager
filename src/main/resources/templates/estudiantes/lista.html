@@ -54,10 +54,10 @@
 						<td th:text="${estudiante.email}"></td>
 						<td sec:authorize="hasRole('ADMIN')">
 							<div class="table-actions">
-								<a th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
-									class="btn btn-danger btn-sm"
-									onclick="return confirm('¿Seguro que quieres eliminar este estudiante?')">
-									🗑 Eliminar </a>
+								<a th:href="@{/estudiantes/editar/{id}(id=${estudiante.id})}"
+									class="btn-edit">Editar</a> <a
+									th:href="@{/estudiantes/eliminar/{id}(id=${estudiante.id})}"
+									class="btn-delete" onclick="return confirm('¿Eliminar?')">Eliminar</a>
 							</div>
 						</td>
 

@@ -40,6 +40,7 @@ public class EvaluacionController {
 		this.cursoMapper = cursoMapper;
 	}
 
+	// LISTAR
 	@GetMapping
 	public String listar(Model model) {
 		model.addAttribute("evaluaciones",
@@ -47,46 +48,66 @@ public class EvaluacionController {
 		return "evaluaciones/lista";
 	}
 
+	// FORM NUEVO
 	@GetMapping("/nuevo")
 	public String nuevo(Model model) {
+
 		model.addAttribute("evaluacion", new EvaluacionDTO());
+
 		model.addAttribute("estudiantes",
 				estudianteService.listarTodos().stream().map(estudianteMapper::toDTO).collect(Collectors.toList()));
+
 		model.addAttribute("cursos",
 				cursoService.listarTodos().stream().map(cursoMapper::toDTO).collect(Collectors.toList()));
+
 		return "evaluaciones/formulario";
 	}
 
+	// GUARDAR
 	@PostMapping("/guardar")
-	public String guardar(@Valid @ModelAttribute EvaluacionDTO evaluacionDTO, BindingResult result, Model model) {
+	public String guardar(@Valid @ModelAttribute("evaluacion") EvaluacionDTO dto, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
+
+			model.addAttribute("evaluacion", dto);
+
 			model.addAttribute("estudiantes",
 					estudianteService.listarTodos().stream().map(estudianteMapper::toDTO).collect(Collectors.toList()));
+
 			model.addAttribute("cursos",
 					cursoService.listarTodos().stream().map(cursoMapper::toDTO).collect(Collectors.toList()));
+
 			return "evaluaciones/formulario";
 		}
 
-		Evaluacion evaluacion = evaluacionMapper.toEntity(evaluacionDTO);
+		Evaluacion evaluacion = evaluacionMapper.toEntity(dto);
 		evaluacionService.guardar(evaluacion);
+
 		return "redirect:/evaluaciones";
 	}
 
+	// EDITAR
 	@GetMapping("/editar/{id}")
 	public String editar(@PathVariable Long id, Model model) {
+
 		Evaluacion evaluacion = evaluacionService.buscarPorId(id);
+
 		if (evaluacion == null) {
 			return "redirect:/evaluaciones";
 		}
+
 		model.addAttribute("evaluacion", evaluacionMapper.toDTO(evaluacion));
+
 		model.addAttribute("estudiantes",
 				estudianteService.listarTodos().stream().map(estudianteMapper::toDTO).collect(Collectors.toList()));
+
 		model.addAttribute("cursos",
 				cursoService.listarTodos().stream().map(cursoMapper::toDTO).collect(Collectors.toList()));
+
 		return "evaluaciones/formulario";
 	}
 
+	// ELIMINAR
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		evaluacionService.eliminar(id);

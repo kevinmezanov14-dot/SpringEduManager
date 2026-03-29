@@ -58,9 +58,13 @@ public class CursoRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> eliminar(@PathVariable Long id) {
-		boolean eliminado = cursoService.eliminarSiNoTieneEvaluaciones(id);
-		if (!eliminado)
-			return ResponseEntity.status(409).body("No se puede eliminar: tiene evaluaciones asociadas");
+
+		boolean eliminado = cursoService.eliminarSiNoTieneDependencias(id);
+
+		if (!eliminado) {
+			return ResponseEntity.status(409).body("No se puede eliminar: tiene registros asociados");
+		}
+
 		return ResponseEntity.noContent().build();
 	}
 }

@@ -7,6 +7,7 @@ import com.edu.manager.services.CursoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +25,12 @@ public class CursoController {
 	}
 
 	@GetMapping
-	public String listar(Model model, @RequestParam(required = false) String error) {
+	public String listar(Model model) {
 		List<CursoDTO> cursos = cursoService.listarTodos().stream().map(cursoMapper::toDTO)
 				.collect(Collectors.toList());
 
 		model.addAttribute("cursos", cursos);
-		model.addAttribute("error", error);
+
 		return "cursos/lista";
 	}
 
@@ -57,11 +58,16 @@ public class CursoController {
 	}
 
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long id) {
-		boolean eliminado = cursoService.eliminarSiNoTieneEvaluaciones(id);
+	public String eliminar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+		boolean eliminado = cursoService.eliminarSiNoTieneDependencias(id);
+
 		if (!eliminado) {
-			return "redirect:/cursos?error=No se puede eliminar, tiene evaluaciones";
+			redirectAttributes.addFlashAttribute("error", "No se puede eliminar, tiene registros asociados");
+		} else {
+			redirectAttributes.addFlashAttribute("success", "Curso eliminado correctamente");
 		}
+
 		return "redirect:/cursos";
 	}
 }

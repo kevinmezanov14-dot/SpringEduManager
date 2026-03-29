@@ -32,8 +32,7 @@
 
 		<div class="card p-3 shadow">
 
-			<table class="table table-striped table-hover">
-
+			<table class="table table-striped table-hover align-middle">
 				<thead class="table-dark">
 					<tr>
 						<th>ID</th>
@@ -42,34 +41,28 @@
 						<th>Nota</th>
 						<th>Estudiante</th>
 						<th>Curso</th>
-						<th sec:authorize="hasRole('ADMIN')">Acciones</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
-
 				<tbody>
 					<tr th:each="evaluacion : ${evaluaciones}">
 						<td th:text="${evaluacion.id}"></td>
 						<td th:text="${evaluacion.titulo}"></td>
 						<td th:text="${evaluacion.descripcion}"></td>
 						<td th:text="${evaluacion.nota}"></td>
+						<td th:text="${evaluacion.estudianteNombre}"></td>
+						<td th:text="${evaluacion.cursoNombre}"></td>
 
-						<td
-							th:text="${evaluacion.estudiante != null ? evaluacion.estudiante.nombre + ' ' + evaluacion.estudiante.apellido : '-'}"></td>
-
-						<td
-							th:text="${evaluacion.curso != null ? evaluacion.curso.nombre : '-'}"></td>
-
-						<td sec:authorize="hasRole('ADMIN')">
+						<td>
 							<div class="table-actions">
 								<a th:href="@{/evaluaciones/editar/{id}(id=${evaluacion.id})}"
-									class="btn-edit">✏ Editar</a> <a
+									class="btn-edit">Editar</a> <a
 									th:href="@{/evaluaciones/eliminar/{id}(id=${evaluacion.id})}"
-									class="btn-delete">🗑 Eliminar</a>
+									class="btn-delete" onclick="return confirm('¿Eliminar?')">Eliminar</a>
 							</div>
 						</td>
 					</tr>
 				</tbody>
-
 			</table>
 
 		</div>

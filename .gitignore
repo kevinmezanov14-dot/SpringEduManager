@@ -3,21 +3,25 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+# Eclipse / STS
+.settings/
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
 .springBeans
 .sts4-cache
+bin/
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,15 +29,14 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
 ### Datos sensibles ###
-src/main/resources/application.properties
+api_test_report.html
+scripts/test_api_report.sh
+src/main/java/com/edu/manager/security/JwtUtil.java
 
 ### Logs ###
 *.log
@@ -42,3 +45,12 @@ logs/
 ### Sistema operativo ###
 .DS_Store
 Thumbs.db
+
+# Configuración local 
+application-local.properties
+.env
+
+# Otros temporales 
+*.tmp
+*.bak
+*.swp

@@ -1,45 +1,55 @@
 package com.edu.manager.mappers;
 
 import com.edu.manager.dtos.EvaluacionDTO;
-import com.edu.manager.models.Evaluacion;
+import com.edu.manager.models.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EvaluacionMapper {
 
-	private final EstudianteMapper estudianteMapper;
-	private final CursoMapper cursoMapper;
+	public Evaluacion toEntity(EvaluacionDTO dto) {
+		Evaluacion e = new Evaluacion();
 
-	public EvaluacionMapper(EstudianteMapper estudianteMapper, CursoMapper cursoMapper) {
-		this.estudianteMapper = estudianteMapper;
-		this.cursoMapper = cursoMapper;
+		e.setId(dto.getId());
+		e.setTitulo(dto.getTitulo());
+		e.setDescripcion(dto.getDescripcion());
+		e.setNota(dto.getNota());
+
+		// 🔥 SOLO ID
+		if (dto.getEstudianteId() != null) {
+			Estudiante est = new Estudiante();
+			est.setId(dto.getEstudianteId());
+			e.setEstudiante(est);
+		}
+
+		if (dto.getCursoId() != null) {
+			Curso cur = new Curso();
+			cur.setId(dto.getCursoId());
+			e.setCurso(cur);
+		}
+
+		return e;
 	}
 
-	public EvaluacionDTO toDTO(Evaluacion evaluacion) {
+	public EvaluacionDTO toDTO(Evaluacion e) {
 		EvaluacionDTO dto = new EvaluacionDTO();
-		dto.setId(evaluacion.getId());
-		dto.setTitulo(evaluacion.getTitulo());
-		dto.setDescripcion(evaluacion.getDescripcion());
-		dto.setNota(evaluacion.getNota());
 
-		// Mapear referencias
-		dto.setEstudiante(estudianteMapper.toDTO(evaluacion.getEstudiante()));
-		dto.setCurso(cursoMapper.toDTO(evaluacion.getCurso()));
+		dto.setId(e.getId());
+		dto.setTitulo(e.getTitulo());
+		dto.setDescripcion(e.getDescripcion());
+		dto.setNota(e.getNota());
+
+		// 🔥 IDs + nombres
+		if (e.getEstudiante() != null) {
+			dto.setEstudianteId(e.getEstudiante().getId());
+			dto.setEstudianteNombre(e.getEstudiante().getNombre() + " " + e.getEstudiante().getApellido());
+		}
+
+		if (e.getCurso() != null) {
+			dto.setCursoId(e.getCurso().getId());
+			dto.setCursoNombre(e.getCurso().getNombre());
+		}
 
 		return dto;
-	}
-
-	public Evaluacion toEntity(EvaluacionDTO dto) {
-		Evaluacion evaluacion = new Evaluacion();
-		evaluacion.setId(dto.getId());
-		evaluacion.setTitulo(dto.getTitulo());
-		evaluacion.setDescripcion(dto.getDescripcion());
-		evaluacion.setNota(dto.getNota());
-
-		// Mapear referencias
-		evaluacion.setEstudiante(estudianteMapper.toEntity(dto.getEstudiante()));
-		evaluacion.setCurso(cursoMapper.toEntity(dto.getCurso()));
-
-		return evaluacion;
 	}
 }

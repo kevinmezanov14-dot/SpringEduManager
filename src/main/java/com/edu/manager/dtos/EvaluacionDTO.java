@@ -1,17 +1,35 @@
 package com.edu.manager.dtos;
 
+import jakarta.validation.constraints.*;
+
 public class EvaluacionDTO {
 
 	private Long id;
+
+	@NotBlank(message = "El título es obligatorio")
 	private String titulo;
+
+	@NotBlank(message = "La descripción es obligatoria")
 	private String descripcion;
+
+	@NotNull(message = "La nota es obligatoria")
+	@DecimalMin(value = "1.0", message = "La nota mínima es 1.0")
+	@DecimalMax(value = "7.0", message = "La nota máxima es 7.0")
 	private Double nota;
 
-	// Referencias a Estudiante y Curso
-	private EstudianteDTO estudiante;
-	private CursoDTO curso;
+	// 🔥 IDs (backend limpio)
+	@NotNull(message = "Debe seleccionar un estudiante")
+	private Long estudianteId;
 
-	// Getters y Setters
+	@NotNull(message = "Debe seleccionar un curso")
+	private Long cursoId;
+
+	// 🔥 DATOS PARA VISTA (Thymeleaf)
+	private String estudianteNombre;
+	private String cursoNombre;
+
+	// GETTERS Y SETTERS
+
 	public Long getId() {
 		return id;
 	}
@@ -44,19 +62,35 @@ public class EvaluacionDTO {
 		this.nota = nota;
 	}
 
-	public EstudianteDTO getEstudiante() {
-		return estudiante;
+	public Long getEstudianteId() {
+		return estudianteId;
 	}
 
-	public void setEstudiante(EstudianteDTO estudiante) {
-		this.estudiante = estudiante;
+	public void setEstudianteId(Long estudianteId) {
+		this.estudianteId = estudianteId;
 	}
 
-	public CursoDTO getCurso() {
-		return curso;
+	public Long getCursoId() {
+		return cursoId;
 	}
 
-	public void setCurso(CursoDTO curso) {
-		this.curso = curso;
+	public void setCursoId(Long cursoId) {
+		this.cursoId = cursoId;
+	}
+
+	public String getEstudianteNombre() {
+		return estudianteNombre;
+	}
+
+	public void setEstudianteNombre(String estudianteNombre) {
+		this.estudianteNombre = estudianteNombre;
+	}
+
+	public String getCursoNombre() {
+		return cursoNombre;
+	}
+
+	public void setCursoNombre(String cursoNombre) {
+		this.cursoNombre = cursoNombre;
 	}
 }

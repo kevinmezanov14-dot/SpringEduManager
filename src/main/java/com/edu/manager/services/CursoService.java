@@ -2,6 +2,7 @@ package com.edu.manager.services;
 
 import com.edu.manager.models.Curso;
 import com.edu.manager.repositories.CursoRepository;
+import com.edu.manager.repositories.PracticaRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class CursoService {
 
 	private final CursoRepository cursoRepository;
+	private final PracticaRepository practicaRepository;
 
-	public CursoService(CursoRepository cursoRepository) {
+	public CursoService(CursoRepository cursoRepository, PracticaRepository practicaRepository) {
 		this.cursoRepository = cursoRepository;
+		this.practicaRepository = practicaRepository;
 	}
 
 	public List<Curso> listarTodos() {
@@ -28,12 +31,23 @@ public class CursoService {
 		return cursoRepository.findById(id).orElse(null);
 	}
 
-	public boolean eliminarSiNoTieneEvaluaciones(Long id) {
+	public boolean eliminarSiNoTieneDependencias(Long id) {
+
 		Curso curso = buscarPorId(id);
-		if (curso != null && (curso.getEvaluaciones() == null || curso.getEvaluaciones().isEmpty())) {
-			cursoRepository.deleteById(id);
-			return true;
+
+		if (curso == null) return false;
+
+		boolean tieneEvaluaciones =
+				curso.getEvaluaciones() != null && !curso.getEvaluaciones().isEmpty();
+
+		boolean tienePracticas =
+				practicaRepository.existsByCursoId(id);
+
+		if (tieneEvaluaciones || tienePracticas) {
+			return false;
 		}
-		return false;
+
+		cursoRepository.deleteById(id);
+		return true;
 	}
 }
