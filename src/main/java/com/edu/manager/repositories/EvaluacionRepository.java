@@ -7,9 +7,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repositorio para la entidad {@link Evaluacion}.
+ * <p>
+ * Permite operaciones CRUD y carga de relaciones con curso y estudiante.
+ * </p>
+ */
 @Repository
 public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
-	@Query("SELECT e FROM Evaluacion e " + "JOIN FETCH e.estudiante " + "JOIN FETCH e.curso")
-	List<Evaluacion> findAllWithRelations();
+    /**
+     * Obtiene todas las evaluaciones junto con los estudiantes y cursos asociados.
+     * Esto evita problemas de LazyInitializationException al acceder a relaciones.
+     */
+    @Query("SELECT e FROM Evaluacion e JOIN FETCH e.estudiante JOIN FETCH e.curso")
+    List<Evaluacion> findAllWithRelations();
 }

@@ -36,7 +36,7 @@
 							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/estudiantes')} ? ' active' : ''">
 								👨‍🎓 Estudiantes </a></li>
 
-						<li class="nav-item"><a class="nav-link" th:href="@{/cursos}"
+						<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{/cursos}"
 							th:classappend="${#httpServletRequest != null and #httpServletRequest.requestURI.contains('/cursos')} ? ' active' : ''">
 								📚 Cursos </a></li>
 
@@ -52,7 +52,7 @@
 
 					</ul>
 
-					<!-- USUARIO DROPDOWN PRO -->
+					<!-- USUARIO DROPDOWN -->
 					<div class="dropdown ms-lg-3 ">
 
 						<button class="btn btn-dorado dropdown-toggle user-dropdown"

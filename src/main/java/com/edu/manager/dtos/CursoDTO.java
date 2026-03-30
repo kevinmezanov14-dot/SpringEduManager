@@ -3,17 +3,38 @@ package com.edu.manager.dtos;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
+/**
+ * DTO (Data Transfer Object) para la entidad Curso.
+ * <p>
+ * Permite transferir información de cursos entre capas de la aplicación sin
+ * exponer directamente la entidad JPA completa.
+ * </p>
+ */
 public class CursoDTO {
 
+	/** Identificador del curso */
 	private Long id;
+
+	/** Nombre del curso */
 	private String nombre;
+
+	/** Descripción breve del curso */
 	private String descripcion;
+
+	/** Nombre del instructor del curso */
 	private String instructor;
 
+	/**
+	 * Lista de evaluaciones asociadas al curso.
+	 * <p>
+	 * Se ignora en la serialización JSON para evitar ciclos de referencia o
+	 * sobrecarga de datos.
+	 * </p>
+	 */
 	@JsonIgnore
 	private List<EvaluacionDTO> evaluaciones;
 
-	// Getters y Setters
+	// Getters y setters
 	public Long getId() {
 		return id;
 	}

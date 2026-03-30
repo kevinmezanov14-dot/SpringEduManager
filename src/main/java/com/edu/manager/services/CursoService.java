@@ -8,29 +8,66 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Servicio encargado de gestionar la lógica de negocio relacionada con los cursos.
+ * <p>
+ * Este servicio proporciona operaciones para listar, guardar, buscar y eliminar cursos,
+ * asegurando que no se eliminen cursos que tengan dependencias asociadas (evaluaciones o prácticas).
+ * </p>
+ * 
+ * Autor: Kevin
+ */
 @Service
 public class CursoService {
 
 	private final CursoRepository cursoRepository;
 	private final PracticaRepository practicaRepository;
-
+    /**
+     * Constructor de CursoService.
+     * 
+     * @param cursoRepository repositorio para operaciones CRUD de cursos
+     * @param practicaRepository repositorio para verificar prácticas asociadas
+     */
 	public CursoService(CursoRepository cursoRepository, PracticaRepository practicaRepository) {
 		this.cursoRepository = cursoRepository;
 		this.practicaRepository = practicaRepository;
 	}
 
+    /**
+     * Obtiene la lista completa de cursos.
+     *
+     * @return lista de todos los cursos registrados
+     */
 	public List<Curso> listarTodos() {
 		return cursoRepository.findAll();
 	}
-
+    /**
+     * Guarda o actualiza un curso en la base de datos.
+     *
+     * @param curso objeto curso a persistir
+     */
 	public void guardar(Curso curso) {
 		cursoRepository.save(curso);
 	}
-
+    /**
+     * Busca un curso por su identificador.
+     *
+     * @param id identificador del curso
+     * @return el curso si existe, o null si no se encuentra
+     */
 	public Curso buscarPorId(Long id) {
 		return cursoRepository.findById(id).orElse(null);
 	}
-
+    /**
+     * Elimina un curso solo si no tiene dependencias asociadas.
+     * <p>
+     * Verifica que el curso no tenga evaluaciones ni prácticas relacionadas.
+     * Si existen dependencias, no realiza la eliminación y devuelve false.
+     * </p>
+     *
+     * @param id identificador del curso a eliminar
+     * @return true si el curso fue eliminado, false si tiene dependencias o no existe
+     */
 	public boolean eliminarSiNoTieneDependencias(Long id) {
 
 		Curso curso = buscarPorId(id);

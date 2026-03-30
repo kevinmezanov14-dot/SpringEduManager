@@ -1,3 +1,8 @@
+/**
+ * DTO que representa una práctica de un estudiante en un curso.
+ * Usado para transferir datos entre frontend y backend sin exponer la entidad completa.
+ * Contiene validaciones y referencias a EstudianteDTO y CursoDTO.
+ */
 package com.edu.manager.dtos;
 
 import jakarta.validation.constraints.NotBlank;
@@ -69,4 +74,4 @@ public class PracticaDTO {
 	public void setCurso(CursoDTO curso) {
 		this.curso = curso;
 	}
-} 
+}

@@ -9,6 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador MVC para manejo de login, registro y páginas principales.
+ * <p>
+ * Rutas principales: - GET /login → muestra formulario de login - POST /login →
+ * procesa login y autentica al usuario - GET / → página principal - GET
+ * /registro → muestra formulario de registro - POST /registro → crea un nuevo
+ * usuario
+ */
 @Controller
 public class LoginController {
 
@@ -20,19 +28,31 @@ public class LoginController {
 		this.authenticationManager = authenticationManager;
 	}
 
+	/**
+	 * Muestra el formulario de login.
+	 *
+	 * @return nombre de la vista "login"
+	 */
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
 
+	/**
+	 * Procesa el login del usuario.
+	 *
+	 * @param username nombre de usuario
+	 * @param password contraseña
+	 * @param model    modelo para pasar datos a la vista
+	 * @return redirige a "/" si es exitoso, o recarga "login" con error si falla
+	 */
 	@PostMapping("/login")
 	public String procesarLogin(@RequestParam String username, @RequestParam String password, Model model) {
-
 		try {
 			Authentication auth = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-			// 🔥 IMPORTANTE: guardar en contexto (simular sesión)
+			// guardar autenticación en contexto de seguridad (simula sesión)
 			SecurityContextHolder.getContext().setAuthentication(auth);
 
 			return "redirect:/";
@@ -44,19 +64,37 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * Página principal del sistema.
+	 *
+	 * @return nombre de la vista "index"
+	 */
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
 
+	/**
+	 * Muestra el formulario de registro de usuario.
+	 *
+	 * @return nombre de la vista "registro"
+	 */
 	@GetMapping("/registro")
 	public String registro() {
 		return "registro";
 	}
 
+	/**
+	 * Procesa el registro de un nuevo usuario.
+	 *
+	 * @param username nombre de usuario
+	 * @param password contraseña
+	 * @param model    modelo para pasar datos a la vista
+	 * @return redirige a "/login" si es exitoso, o recarga "registro" con error si
+	 *         falla
+	 */
 	@PostMapping("/registro")
 	public String guardarUsuario(@RequestParam String username, @RequestParam String password, Model model) {
-
 		try {
 			Usuario usuario = new Usuario();
 			usuario.setUsername(username.trim());

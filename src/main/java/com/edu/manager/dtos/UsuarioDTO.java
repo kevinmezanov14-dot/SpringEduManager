@@ -1,30 +1,35 @@
+/**
+ * DTO que representa información pública de un usuario.
+ * No expone la contraseña. Usado para vistas o respuestas de API.
+ */
 package com.edu.manager.dtos;
 
 public class UsuarioDTO {
 
-    private String username;
-    private String role;
+	private String username;
+	private String role;
 
-    public UsuarioDTO() {}
+	public UsuarioDTO() {
+	}
 
-    public UsuarioDTO(String username, String role) {
-        this.username = username;
-        this.role = role;
-    }
+	public UsuarioDTO(String username, String role) {
+		this.username = username;
+		this.role = role;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 }
