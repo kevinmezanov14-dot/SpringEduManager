@@ -102,11 +102,12 @@ public class EstudianteController {
 	 */
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-		Estudiante estudiante = estudianteService.buscarPorId(id);
-		if (estudiante != null && estudiante.getEvaluaciones() != null && !estudiante.getEvaluaciones().isEmpty()) {
-			return "redirect:/estudiantes?error=No se puede eliminar, tiene evaluaciones";
-		}
-		estudianteService.eliminar(id);
-		return "redirect:/estudiantes";
+	    boolean eliminado = estudianteService.eliminarSiNoTieneDependencias(id);
+
+	    if (!eliminado) {
+	        return "redirect:/estudiantes?error=No se puede eliminar, tiene registros asociados";
+	    }
+
+	    return "redirect:/estudiantes?success=Eliminado correctamente";
 	}
 }

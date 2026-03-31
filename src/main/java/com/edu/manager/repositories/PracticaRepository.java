@@ -11,11 +11,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PracticaRepository extends JpaRepository<Practica, Long> {
 
-    /**
-     * Verifica si existen prácticas asociadas a un curso.
-     *
-     * @param cursoId ID del curso
-     * @return true si existen prácticas asociadas
-     */
-    boolean existsByCursoId(Long cursoId);
+	/**
+	 * Verifica si existen prácticas asociadas a un curso.
+	 *
+	 * @param cursoId ID del curso
+	 * @return true si existen prácticas asociadas
+	 */
+	boolean existsByCursoId(Long cursoId);
+
+	boolean existsByEstudianteId(Long estudianteId);
 }

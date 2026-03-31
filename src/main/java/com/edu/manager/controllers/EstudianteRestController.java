@@ -97,11 +97,13 @@ public class EstudianteRestController {
 	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-		Estudiante existente = estudianteService.buscarPorId(id);
-		if (existente == null)
-			return ResponseEntity.notFound().build();
 
-		estudianteService.eliminar(id);
-		return ResponseEntity.noContent().build();
+	    boolean eliminado = estudianteService.eliminarSiNoTieneDependencias(id);
+
+	    if (!eliminado) {
+	        return ResponseEntity.badRequest().build();
+	    }
+
+	    return ResponseEntity.noContent().build();
 	}
 }

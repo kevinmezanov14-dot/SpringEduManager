@@ -16,10 +16,14 @@ import java.util.List;
 @Repository
 public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
-    /**
-     * Obtiene todas las evaluaciones junto con los estudiantes y cursos asociados.
-     * Esto evita problemas de LazyInitializationException al acceder a relaciones.
-     */
-    @Query("SELECT e FROM Evaluacion e JOIN FETCH e.estudiante JOIN FETCH e.curso")
-    List<Evaluacion> findAllWithRelations();
+	/**
+	 * Obtiene todas las evaluaciones junto con los estudiantes y cursos asociados.
+	 * Esto evita problemas de LazyInitializationException al acceder a relaciones.
+	 */
+	@Query("SELECT e FROM Evaluacion e JOIN FETCH e.estudiante JOIN FETCH e.curso")
+	List<Evaluacion> findAllWithRelations();
+
+	boolean existsByCursoId(Long cursoId);
+
+	boolean existsByEstudianteId(Long estudianteId);
 }

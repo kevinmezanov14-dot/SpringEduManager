@@ -15,42 +15,42 @@ import static org.mockito.Mockito.*;
 
 class EvaluacionServiceTest {
 
-    private EvaluacionRepository evaluacionRepository;
-    private EvaluacionService evaluacionService;
+	private EvaluacionRepository evaluacionRepository;
+	private EvaluacionService evaluacionService;
 
-    @BeforeEach
-    void setUp() {
-        evaluacionRepository = Mockito.mock(EvaluacionRepository.class);
-        evaluacionService = new EvaluacionService(evaluacionRepository);
-    }
+	@BeforeEach
+	void setUp() {
+		evaluacionRepository = Mockito.mock(EvaluacionRepository.class);
+		evaluacionService = new EvaluacionService(evaluacionRepository);
+	}
 
-    @Test
-    void testListarTodos() {
-        when(evaluacionRepository.findAll()).thenReturn(Arrays.asList(new Evaluacion(), new Evaluacion()));
-        List<Evaluacion> lista = evaluacionService.listarTodos();
-        assertEquals(2, lista.size());
-    }
+	@Test
+	void testListarTodos() {
+		when(evaluacionRepository.findAllWithRelations()).thenReturn(Arrays.asList(new Evaluacion(), new Evaluacion()));
+		List<Evaluacion> lista = evaluacionService.listarTodos();
+		assertEquals(2, lista.size());
+	}
 
-    @Test
-    void testGuardar() {
-        Evaluacion e = new Evaluacion();
-        evaluacionService.guardar(e);
-        verify(evaluacionRepository, times(1)).save(e);
-    }
+	@Test
+	void testGuardar() {
+		Evaluacion e = new Evaluacion();
+		evaluacionService.guardar(e);
+		verify(evaluacionRepository, times(1)).save(e);
+	}
 
-    @Test
-    void testBuscarPorId() {
-        Evaluacion e = new Evaluacion();
-        e.setId(1L);
-        when(evaluacionRepository.findById(1L)).thenReturn(Optional.of(e));
-        Evaluacion encontrado = evaluacionService.buscarPorId(1L);
-        assertNotNull(encontrado);
-        assertEquals(1L, encontrado.getId());
-    }
+	@Test
+	void testBuscarPorId() {
+		Evaluacion e = new Evaluacion();
+		e.setId(1L);
+		when(evaluacionRepository.findById(1L)).thenReturn(Optional.of(e));
+		Evaluacion encontrado = evaluacionService.buscarPorId(1L);
+		assertNotNull(encontrado);
+		assertEquals(1L, encontrado.getId());
+	}
 
-    @Test
-    void testEliminar() {
-        evaluacionService.eliminar(1L);
-        verify(evaluacionRepository, times(1)).deleteById(1L);
-    }
+	@Test
+	void testEliminar() {
+		evaluacionService.eliminar(1L);
+		verify(evaluacionRepository, times(1)).deleteById(1L);
+	}
 }
