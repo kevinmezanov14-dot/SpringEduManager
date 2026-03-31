@@ -69,7 +69,7 @@
 						<td sec:authorize="hasRole('ADMIN')">
 							<div class="table-actions">
 								<a th:href="@{/cursos/editar/{id}(id=${curso.id})}"
-									class="btn-edit">✏ Editar</a> <a
+									class="btn-edit">Editar</a> <a
 									th:href="@{/cursos/eliminar/{id}(id=${curso.id})}"
 									class="btn-delete" onclick="return confirm('¿Eliminar?')">Eliminar</a>
 							</div>

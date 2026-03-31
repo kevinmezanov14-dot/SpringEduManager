@@ -4,6 +4,9 @@ import com.edu.manager.dtos.EstudianteDTO;
 import com.edu.manager.mappers.EstudianteMapper;
 import com.edu.manager.models.Estudiante;
 import com.edu.manager.services.EstudianteService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +71,7 @@ public class EstudianteController {
 	 * @return redirección a /estudiantes
 	 */
 	@PostMapping("/guardar")
-	public String guardar(@ModelAttribute EstudianteDTO dto) {
+	public String guardar(@Valid @ModelAttribute EstudianteDTO dto) {
 		Estudiante estudiante = estudianteMapper.toEntity(dto);
 		estudianteService.guardar(estudiante);
 		return "redirect:/estudiantes";
