@@ -116,13 +116,13 @@ La aplicación implementa autenticación y autorización con **Spring Security**
 
 - El login se realiza en `/login`
 - El logout está disponible desde el menú principal
-- Las rutas de administración están protegidas con `@PreAuthorize` o configuración en `SecurityConfig`
+- Las rutas de administración están protegidas con configuración en `SecurityConfig`
 
 ---
 
 ## API REST
 
-La aplicación expone endpoints RESTful para integración con sistemas externos.
+La aplicación expone endpoints RESTful para integración con sistemas externos como por ejemplo.
 
 ### Estudiantes
 
@@ -174,7 +174,7 @@ Controller  →  Service  →  Repository  →  Base de datos
 |---|---|
 | 1 – Maven | Creación del proyecto con Spring Initializr y configuración del `pom.xml` |
 | 2 – Spring MVC | Implementación del patrón MVC con controladores, vistas y formularios |
-| 3 – Spring Data JPA | Repositorios, servicios y persistencia con H2/MySQL |
+| 3 – Spring Data JPA | Repositorios, servicios y persistencia con MySQL |
 | 4 – Spring Security | Login, logout, roles y protección de rutas |
 | 5 – REST | Exposición de APIs RESTful y consumo desde cliente externo |
 
